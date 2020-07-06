@@ -103,8 +103,23 @@ html {
   #astronaut-display {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
   }
 
   section img {
     width: 400px;
+  }
+
+  #country-flag {
+    width: 25%;
+  }
+
+  #country-name {
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  #flag-country {
+    display: flex;
+    justify-content: space-evenly;
   }

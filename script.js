@@ -6,6 +6,8 @@ fetch(astronautDataSource)
 .then(response => response.json())
 .then(data => astronauts.data = (data));
 
+
+
 // Update html to show selected astronaut info
 function displayAstronautInfo(selectedAstronaut){
     // Create capitalized full name from selectedAstronaut string
@@ -13,6 +15,51 @@ function displayAstronautInfo(selectedAstronaut){
     let fullName = nameOfAstronautArr[0][0].toUpperCase() + nameOfAstronautArr[0].slice(1,) + " " + 
     nameOfAstronautArr[1][0].toUpperCase() + nameOfAstronautArr[1].slice(1,);
     document.querySelector('#user-mess').textContent = `Show me more about ${fullName}!`
+   
+    //let astroToDisplay = Array.from(astroInfo);
+    let astroToDisplay = Array.from(astroInfo.people).filter(person => {
+        if (person.name === fullName){
+            return person;
+        }});
+   
+    let astroImgSrc = astroToDisplay[0].biophoto;
+    let astroCountry = astroToDisplay[0].country;
+    let astroCountryFlagImgSrc = astroToDisplay[0].countryflag;
+    let astroLaunchDate = astroToDisplay[0].launchdate;
+    let astroCareerDays = astroToDisplay[0].careerdays;
+    let astroTitle = astroToDisplay[0].title;
+    let astroLocation = astroToDisplay[0].location;
+    let astroBio = astroToDisplay[0].bio;
+    let astroBiolink = astroToDisplay[0].biolink;
+
+    document.getElementById('poster').style.display ="none";
+    let photoImg = document.createElement('img');
+    photoImg.src = astroImgSrc;
+    document.getElementById('astronaut-display').appendChild(photoImg);
+
+    document.getElementById('search').style.display ="none";
+
+    let flagImg = document.createElement('img');
+    flagImg.id = "country-flag";
+    flagImg.src = astroCountryFlagImgSrc;
+    document.getElementById('flag-country').appendChild(flagImg);
+
+    let countryName = document.createElement('h2');
+    countryName.id = "country-name";
+    document.getElementById('flag-country').appendChild(countryName);
+    document.getElementById('country-name').innerText = astroCountry;
+
+    
+
+
+    console.log(astroCountry);
+    console.log(astroCountryFlagImgSrc);
+    console.log(astroLaunchDate);
+    console.log(astroCareerDays);
+    console.log(astroTitle);
+    console.log(astroLocation);
+    console.log(astroBio);
+    console.log(astroBiolink);
 }
 
 function findMatches(wordToMatch, namesToMatchArr) {
