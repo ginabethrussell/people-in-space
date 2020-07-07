@@ -9,7 +9,10 @@ fetch(astronautDataSource)
 .then(response => response.json())
 .then(data => astronauts.data = (data));
 
-
+// function reloads the original page when button clicked under astro info display
+function reload() {
+    window.location.reload();
+}
 
 // Update html to show selected astronaut info
 function displayAstronautInfo(selectedAstronaut){
@@ -29,11 +32,11 @@ function displayAstronautInfo(selectedAstronaut){
     let astroCountry = astroToDisplay[0].country;
     let astroCountryFlagImgSrc = astroToDisplay[0].countryflag;
     let astroLaunchDate = astroToDisplay[0].launchdate;
-    let astroCareerDays = astroToDisplay[0].careerdays;
+    let astroDays = astroToDisplay[0].careerdays;
     let astroTitle = astroToDisplay[0].title;
     let astroLocation = astroToDisplay[0].location;
     let astroBio = astroToDisplay[0].bio;
-    let astroBiolink = astroToDisplay[0].biolink;
+    let astroBiolink = astroToDisplay[0].biolink; 
 
     document.getElementById('poster').style.display ="none";
     let photoImg = document.createElement('img');
@@ -41,7 +44,6 @@ function displayAstronautInfo(selectedAstronaut){
     document.getElementById('astronaut-display').appendChild(photoImg);
 
     document.getElementById('search').style.display ="none";
-
     let flagImg = document.createElement('img');
     flagImg.id = "country-flag";
     flagImg.src = astroCountryFlagImgSrc;
@@ -52,18 +54,45 @@ function displayAstronautInfo(selectedAstronaut){
     document.getElementById('flag-country').appendChild(countryName);
     document.getElementById('country-name').innerText = astroCountry;
 
+    let launchDate = document.createElement('h3');
+    launchDate.id = "launch-date";
+    document.getElementById('text-info').appendChild(launchDate);
+    document.getElementById('launch-date').innerText = astroLaunchDate;
+
+   let daysInSpace = document.createElement('h3');
+   daysInSpace.id = "days";
+   document.getElementById('text-info').appendChild(daysInSpace);
+   document.getElementById('days').innerText = astroDays;
+   
+   let astroRank = document.createElement('h3');
+   astroRank.id = "title";
+   document.getElementById('text-info').appendChild(astroRank);
+   document.getElementById('title').innerText = astroTitle;
     
+   let location = document.createElement('h3');
+   location.id = "location";
+   document.getElementById('text-info').appendChild(location);
+   document.getElementById('location').innerText = astroLocation;
+    
+   let bio = document.createElement('p');
+   bio.id = "bio";
+   document.getElementById('text-info').appendChild(bio);
+   document.getElementById('bio').innerText = astroBio;
+    
+   let astroContact = document.createElement('a');
+   astroContact.id = "contact";
+   astroContact.href = `${astroBiolink}`;
+   document.getElementById('text-info').appendChild(astroContact);
+   astroContact.setAttribute('target', '_blank');
+   document.getElementById('contact').innerText = "More Info ...";
 
-
-    console.log(astroCountry);
-    console.log(astroCountryFlagImgSrc);
-    console.log(astroLaunchDate);
-    console.log(astroCareerDays);
-    console.log(astroTitle);
-    console.log(astroLocation);
-    console.log(astroBio);
-    console.log(astroBiolink);
+   let refreshButton = document.createElement('button');
+   refreshButton.id = 'refresh-button';
+   document.getElementById('text-info').appendChild(refreshButton);
+   document.getElementById('refresh-button').innerText = 'Find Another Astronaut!';
+   refreshButton.addEventListener('click', reload);
 }
+
 //Create a function to find matches in array to what user is typing
 function findMatches(wordToMatch, namesToMatchArr) {
     return namesToMatchArr.filter(name => {
@@ -131,4 +160,4 @@ function displayMatches(e) {
   searchInput.addEventListener('change', displayMatches);//only fires when off the element
   searchInput.addEventListener('keyup', displayMatches);// runs when each key is pressed
 
-
+  
