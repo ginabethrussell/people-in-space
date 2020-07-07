@@ -1,7 +1,10 @@
-
+// get JSON data from api using browser method - fetch
 const astronautDataSource = 'http://api.open-notify.org/astros.json';
 const astronauts = {};
-
+//fetch returns a promise
+// work with a promise, using .then(blob => blob.json()).then(data => astronauts = data) 
+// when first returned, raw data, use blob object's json method
+// ex. to spread data in an array arrName.push(...data)*didnt work here?
 fetch(astronautDataSource)
 .then(response => response.json())
 .then(data => astronauts.data = (data));
@@ -61,14 +64,15 @@ function displayAstronautInfo(selectedAstronaut){
     console.log(astroBio);
     console.log(astroBiolink);
 }
-
+//Create a function to find matches in array to what user is typing
 function findMatches(wordToMatch, namesToMatchArr) {
     return namesToMatchArr.filter(name => {
-    const regex = new RegExp(wordToMatch, 'gi');
+    const regex = new RegExp(wordToMatch, 'gi'); //g is global, may match any; i is insensitive
     return name.match(regex);
      });
 }  
-  
+
+//called when input is changed
 function displayMatches(e) {
     
     const astronautNamesArr = astronauts.data.people;
@@ -103,8 +107,11 @@ function displayMatches(e) {
         
         return;
    }
+
+   //look for matches to the value typed in
     const matchArray = findMatches(this.value, namesToMatchArr);
 
+    //create highlighted portion in the name
     const html = matchArray.map(name => {
         const regex = new RegExp(this.value,'gi');
         const astroName = name.replace(regex,`<span class="hl">${this.value}</span>` );
@@ -113,14 +120,15 @@ function displayMatches(e) {
                 <span class="name">${astroName}</span>
             </li>
         `;
-    }).join('');
-    suggestions.innerHTML = html; 
+    }).join('');//turns array into a string
+    suggestions.innerHTML = html; //adds to the ul in the html
   }
  
   const searchInput = document.querySelector('.search');
   const suggestions = document.querySelector('.suggestions');
-  
-  searchInput.addEventListener('change', displayMatches);
-  searchInput.addEventListener('keyup', displayMatches);
+
+  //listen for change or key event on input field
+  searchInput.addEventListener('change', displayMatches);//only fires when off the element
+  searchInput.addEventListener('keyup', displayMatches);// runs when each key is pressed
 
 
