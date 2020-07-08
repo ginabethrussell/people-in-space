@@ -104,8 +104,13 @@ function findMatches(wordToMatch, namesToMatchArr) {
 //called when input is changed
 function displayMatches(e) {
     
-    const astronautNamesArr = astronauts.data.people;
-    const namesToMatchArr = astronautNamesArr.map(item => item['name']);
+   //Check for unsuccessful fetch response
+    if (astronauts.data == undefined){
+        namesToMatchArr = staticNameArr;
+    }else{
+        const astronautNamesArr = astronauts.data.people;
+        namesToMatchArr = astronautNamesArr.map(item => item['name']);    
+    }
 
     let inputValue = '';
     let topSuggestion = '';
@@ -160,4 +165,6 @@ function displayMatches(e) {
   searchInput.addEventListener('change', displayMatches);//only fires when off the element
   searchInput.addEventListener('keyup', displayMatches);// runs when each key is pressed
 
-  
+  //back up list of astronauts in space as of 7/7/2020, if fetch unable to return data
+  var staticNameArr = astroInfo.people.map(person => person.name);
+  console.log(staticNameArr);
