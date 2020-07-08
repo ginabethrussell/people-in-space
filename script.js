@@ -27,7 +27,7 @@ function displayAstronautInfo(selectedAstronaut){
         if (person.name === fullName){
             return person;
         }});
-   
+    
     let astroImgSrc = astroToDisplay[0].biophoto;
     let astroCountry = astroToDisplay[0].country;
     let astroCountryFlagImgSrc = astroToDisplay[0].countryflag;
@@ -42,55 +42,60 @@ function displayAstronautInfo(selectedAstronaut){
     let photoImg = document.createElement('img');
     photoImg.src = astroImgSrc;
     document.getElementById('astronaut-display').appendChild(photoImg);
+    
+    let astroName = document.createElement('h2');
+    astroName.id = "name";
+    document.getElementById('text-info').appendChild(astroName);
+    document.getElementById('name').innerText = `${fullName}`;
+
+    let bio = document.createElement('p');
+    bio.id = "bio";
+    document.getElementById('text-info').appendChild(bio);
+    document.getElementById('bio').innerText = `${astroBio}`;
+    
+    let astroRank = document.createElement('h3');
+    astroRank.id = "title";
+    document.getElementById('table').appendChild(astroRank);
+    document.getElementById('title').innerText = `Title: ${astroTitle}`;
+
+    let location = document.createElement('h3');
+    location.id = "location";
+    document.getElementById('table').appendChild(location);
+    document.getElementById('location').innerText = `Location: ${astroLocation}`;
+    
+    let launchDate = document.createElement('h3');
+    launchDate.id = "launch-date";
+    document.getElementById('table').appendChild(launchDate);
+    document.getElementById('launch-date').innerText = `Launch Date: ${astroLaunchDate}`;
+
+    let daysInSpace = document.createElement('h3');
+    daysInSpace.id = "days";
+    document.getElementById('table').appendChild(daysInSpace);
+    document.getElementById('days').innerText = `Days in Space: ${astroDays}`;
+   
+    let countryName = document.createElement('h2');
+    countryName.id = "country-name";
+    document.getElementById('flag-country').appendChild(countryName);
+    document.getElementById('country-name').innerText = astroCountry;
 
     document.getElementById('search').style.display ="none";
     let flagImg = document.createElement('img');
     flagImg.id = "country-flag";
     flagImg.src = astroCountryFlagImgSrc;
     document.getElementById('flag-country').appendChild(flagImg);
+        
+    let astroContact = document.createElement('a');
+    astroContact.id = "contact";
+    astroContact.href = `${astroBiolink}`;
+    document.getElementById('text-info').appendChild(astroContact);
+    astroContact.setAttribute('target', '_blank');
+    document.getElementById('contact').innerText = "More Info ...";
 
-    let countryName = document.createElement('h2');
-    countryName.id = "country-name";
-    document.getElementById('flag-country').appendChild(countryName);
-    document.getElementById('country-name').innerText = astroCountry;
-
-    let launchDate = document.createElement('h3');
-    launchDate.id = "launch-date";
-    document.getElementById('text-info').appendChild(launchDate);
-    document.getElementById('launch-date').innerText = astroLaunchDate;
-
-   let daysInSpace = document.createElement('h3');
-   daysInSpace.id = "days";
-   document.getElementById('text-info').appendChild(daysInSpace);
-   document.getElementById('days').innerText = astroDays;
-   
-   let astroRank = document.createElement('h3');
-   astroRank.id = "title";
-   document.getElementById('text-info').appendChild(astroRank);
-   document.getElementById('title').innerText = astroTitle;
-    
-   let location = document.createElement('h3');
-   location.id = "location";
-   document.getElementById('text-info').appendChild(location);
-   document.getElementById('location').innerText = astroLocation;
-    
-   let bio = document.createElement('p');
-   bio.id = "bio";
-   document.getElementById('text-info').appendChild(bio);
-   document.getElementById('bio').innerText = astroBio;
-    
-   let astroContact = document.createElement('a');
-   astroContact.id = "contact";
-   astroContact.href = `${astroBiolink}`;
-   document.getElementById('text-info').appendChild(astroContact);
-   astroContact.setAttribute('target', '_blank');
-   document.getElementById('contact').innerText = "More Info ...";
-
-   let refreshButton = document.createElement('button');
-   refreshButton.id = 'refresh-button';
-   document.getElementById('text-info').appendChild(refreshButton);
-   document.getElementById('refresh-button').innerText = 'Find Another Astronaut!';
-   refreshButton.addEventListener('click', reload);
+    let refreshButton = document.createElement('button');
+    refreshButton.id = 'refresh-button';
+    document.getElementById('btn').appendChild(refreshButton);
+    document.getElementById('refresh-button').innerText = 'More Astronauts';
+    refreshButton.addEventListener('click', reload);
 }
 
 //Create a function to find matches in array to what user is typing
@@ -156,6 +161,8 @@ function displayMatches(e) {
         `;
     }).join('');//turns array into a string
     suggestions.innerHTML = html; //adds to the ul in the html
+    
+    
   }
  
   const searchInput = document.querySelector('.search');
@@ -167,4 +174,5 @@ function displayMatches(e) {
 
   //back up list of astronauts in space as of 7/7/2020, if fetch unable to return data
   var staticNameArr = astroInfo.people.map(person => person.name);
-  console.log(staticNameArr);
+  
+  
