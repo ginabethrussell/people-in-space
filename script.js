@@ -67,6 +67,11 @@ function displayAstronautInfo(selectedAstronaut){
     launchDate.id = "launch-date";
     document.getElementById('table').appendChild(launchDate);
     document.getElementById('launch-date').innerText = `Launch Date: ${astroLaunchDate}`;
+    
+    let todayDate = Date.now();
+    astroDays = Date.parse(astroLaunchDate);
+    astroDays = Math.floor((todayDate - astroDays)/(1000*3600*24));
+    console.log(astroDays);
 
     let daysInSpace = document.createElement('h3');
     daysInSpace.id = "days";
